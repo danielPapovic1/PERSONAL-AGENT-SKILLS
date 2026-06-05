@@ -1,0 +1,17 @@
+# If running the Python script
+typer==0.24.0
+rich==14.3.3
+PyPDF2==3.0.1
+
+# Rendering Engine
+MiKTeX is required for this project's default Windows setup.
+It provides the actual PDF rendering engines: xelatex and lualatex.
+Download MiKTeX here: https://miktex.org/download
+
+# macOS/Linux users can also use their OS-native TeX distribution, such as
+# MacTeX on macOS or TeX Live on Linux, as long as xelatex or lualatex is
+# available on PATH. MiKTeX is also an option. 
+
+# Expected disk usage:
+# Python packages here are small, usually well under 0.1 GB total.
+# MiKTeX is separate and may use roughly 2-4 GB depending on installed LaTeX packages.
