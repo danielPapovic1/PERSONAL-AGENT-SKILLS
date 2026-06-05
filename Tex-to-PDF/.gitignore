@@ -4,3 +4,4 @@ base-tex/
 images-depiction/
 Jobs/
 Outputs/
+__pycache__
