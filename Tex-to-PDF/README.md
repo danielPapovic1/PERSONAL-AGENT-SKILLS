@@ -18,7 +18,7 @@ and produces a PDF in:
 Outputs\
 ```
 
-The `texpdf.ps1` command is a small local PowerShell builder. It does not render LaTeX itself. It calls a local TeX engine such as `xelatex` or `lualatex`, then copies the generated PDF into `Outputs\`.
+The `<path-to>texpdf.ps1` command is a small local PowerShell builder. It does not render LaTeX itself. It calls a local TeX engine such as `xelatex` or `lualatex`, then copies the generated PDF into `Outputs\`.
 
 ## Why Use This
 
