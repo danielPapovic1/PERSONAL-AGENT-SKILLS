@@ -1,6 +1,6 @@
 ---
 name: tex-pdf
-description: Build a LaTeX .tex file into a PDF using this skill's local Scripts/texpdf.ps1 or Scripts/texpdf.sh helper. Use when the user asks to compile, build, render, or convert a TeX/LaTeX resume or document to PDF.
+description: Build a LaTeX .tex file into a PDF using this skill's local Scripts/texpdf.ps1 or Scripts/texpdf.sh helper. Use when the user asks to compile, build, render, or convert a TeX/LaTeX resume or document to PDF. 
 ---
 
 # TeX to PDF
@@ -31,9 +31,16 @@ On macOS or Linux:
 ./.agents/skills/tex-pdf/Scripts/texpdf.sh path/to/file.tex
 ```
 
+Write to a custom output path:
+
+```powershell/bash
+./.agents/skills/tex-pdf/Scripts/texpdf.sh||ps1 <dir-path-from-cwd>/<your-.tex-file> --output Outputs/<custom-name.pdf>
+```
+
 ## Notes
 
 - Use `xelatex` by default unless the user requests a different engine or the script chooses one explicitly.
 - Do not edit the `.tex` file unless the user asked for content changes or a build error requires a source fix.
 - Do not invent missing packages, links, dates, or resume facts. Surface build errors directly.
 - Keep changes scoped to compilation and practical verification.
+- If build fails tell user why.

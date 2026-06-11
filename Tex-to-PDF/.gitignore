@@ -4,3 +4,6 @@ base-tex/
 images-depiction/
 Jobs/
 Outputs/
+./texpdf.ps1
+./agents_resume_tailoring_prompt.md
+Job-Project-Descriptions/

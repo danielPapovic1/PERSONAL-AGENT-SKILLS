@@ -1,200 +1,148 @@
 # AGENTS.md
 
-## Mission Statement
+## Mission
 
-This repo is a personal LaTeX resume workshop. Its purpose is to create clean, job-specific `.tex` resumes that compile into polished PDFs without relying on external resume builders.
+This is a fast job-application resume workshop. Its purpose is to turn a job posting into:
 
-The agent's role is to be a precise LaTeX resume creator for the resume owner: use the existing base resume and past job-specific resumes as references, apply the user's requested customizations, preserve factual content, and produce recruiter-readable resumes that are easy to revise quickly.
+1. A clear job-posting brief.
+2. A structured resume mockup text file.
+3. A clean, ATS-friendly `.tex` resume that follows the existing visual style.
 
-## Primary Goal
+The agent's role is to act like a practical technical recruiting strategist, resume editor, and LaTeX resume creator. Optimize for interview chances, not flashy design. The resume should be easy for ATS systems to parse, easy for recruiters to scan, and easy for the resume owner to revise quickly.
 
-When asked to create or edit a resume, optimize for:
+## Reference Map
 
-1. A professional PDF that compiles cleanly.
-2. Role-specific Technical Skills and project emphasis.
-3. The resume owner's existing visual style and wording preferences.
-4. Fast iteration through small, targeted LaTeX edits.
-5. No invented facts, dates, metrics, links, awards, or credentials.
+Use these files as references, not as hardcoded content:
 
-## Canonical References
+- `agents_resume_tailoring_prompt.md` is the longer strategy guide for ATS, recruiter, and resume-tailoring judgment.
+- `base-tex/BASE-tex-resume.tex` is the visual and LaTeX style reference.
+- `Jobs/<role>/job-posting-brief.md` shows the expected job-brief artifact format.
+- `Jobs/<role>/*Mockup.txt` shows the intermediate resume-content planning format.
+- `Jobs/<role>/*.tex` files show examples of finished role-specific resumes.
 
-Use these files as the source of truth for style and workflow:
+Existing job folders are examples of the workflow. Do not memorize or force old projects into new resumes. Select evidence based on the current posting and the material the user provides.
 
-- `base-tex/BASE-tex-resume.tex` is the base visual template.
-- `Jobs/*/*.tex` files are examples of job-specific tailoring.
-- `RUN_COMMANDS.md` documents the current build commands.
-- `texpdf.ps1` is the main Windows/PowerShell PDF builder.
-- `texpdf.sh` is the Bash PDF builder for macOS/Linux/WSL/Git Bash.
+## Core Workflow
 
-Prefer matching the newest successful job-specific resume when the user says "same as the last one" or "same format."
+When the user provides a posting or asks for a role-specific resume:
 
-## Standard Resume Shape
+1. Read the posting and identify what the role actually is.
+2. Create or update a job-posting brief that filters the posting into ATS keywords, recruiter priorities, hidden requirements, risks, and the strongest resume angle.
+3. Use the brief to create or improve a structured mockup text file with section order, skills, selected evidence, bullets, link labels, and truth checks.
+4. Convert the mockup into professional LaTeX using the base resume style and clean syntax.
+5. Verify the source for resume quality, LaTeX safety, link handling, and factual risk.
 
-Most resumes should keep this structure unless the user asks otherwise:
+Resolve obvious details from the repo before asking questions. Ask only when a missing fact would materially change the resume or risk inventing something.
 
-- Header with name, phone, email, LinkedIn, and GitHub.
-- Technical Skills tailored to the job.
-- Education.
-- Projects.
-- Optional Experience, only when useful for that version.
-- Optional Extracurricular, only when useful for that version.
+## Job-Posting Brief
 
-Keep the existing Times New Roman/fontspec style, gray section rules, compact spacing, and itemized bullet layout unless the user explicitly asks for a visual redesign.
+The brief should explain what the role actually wants, not just repeat the title. Classify the role in practical terms such as software engineering, backend, AI/ML, AI platform/MLOps, data, cloud/devops, cybersecurity, IT/systems, technical analyst, or hybrid.
 
-## Job-Specific Resume Workflow
+A strong brief should include:
 
-When creating a new application resume:
+- Role snapshot: company, role, location, term, team, and work mode when available.
+- Actual work: coding, support, operations, documentation, stakeholder communication, learning curve, and value for future software roles.
+- Must-have signals: required skills, education, tools, responsibilities, and availability constraints.
+- Preferred signals: tools or experiences that help but should not be claimed unless truthful.
+- ATS keywords: exact posting language worth using naturally.
+- Hidden requirements: what phrases imply, such as lifecycle management, debugging, monitoring, release awareness, CI/CD, automation, or stakeholder communication.
+- Resume positioning: the best truthful angle for the resume owner.
+- Resume emphasis order: which sections and evidence should appear first.
+- Facts not to invent: tools, platforms, metrics, domains, credentials, or claims that are not supported by provided material.
 
-1. Inspect the target job folder, the requested notes/mockup `.txt` file, and the closest existing `.tex` resume.
-2. Create the new `.tex` file inside the requested `Jobs/<company-role>/` directory.
-3. Use the closest existing resume as the starting structure.
-4. Replace only the requested sections, usually Technical Skills and selected Projects.
-5. Preserve user-approved customizations from recent resumes when relevant.
-6. Do not overwrite unrelated job resumes.
-7. After editing, inspect the source for LaTeX and resume-specific issues.
+The brief should filter out noise. It should help another agent or future session understand what proof the resume needs and what to avoid exaggerating.
 
-If the user asks for "quick" or "same as X but with Y," make the minimal direct change rather than redesigning the resume.
+## Mockup Text File
 
-## Link Style
+The mockup is the bridge between the brief and the final `.tex` file. It should be structured enough that creating the LaTeX is mostly mechanical, while still leaving room for professional editing.
 
-Use concise visible link text and hide long URLs inside `\href`.
+A useful mockup should include:
 
-Preferred visible labels:
+- Header details and profile links.
+- Targeted Technical Skills categories in the order that fits the posting.
+- Education details and relevant coursework only when useful.
+- Experience entries with dates, titles, location, and role-relevant bullets.
+- Selected projects, hackathons, or technical proof points chosen for the role.
+- Project title lines with public-facing name, role/category, core stack, and date.
+- Bullet drafts that state what was built, the stack, the problem solved, and the strongest defensible outcome.
+- Link intent, such as which URLs become `GitHub: Project Name`, `[Demo: Link]`, portfolio links, or readable profile URLs.
+- Truth checks for uncertain metrics, tools, dates, awards, planned work, or claims that need user confirmation.
 
-- `GitHub: Project Name`
-- `GitHub: Another Project`
-- `[Demo: Link]`
+Do not treat the mockup as final wording. Clean up copied bullets, raw URLs, mojibake, local paths, weak verbs, repeated phrasing, and risky claims when converting it into LaTeX.
 
-Avoid visible full URLs in project lines unless the user explicitly asks. Header links may show readable profile URLs, such as `github.com/username`.
+## Resume Conventions
 
-Use bracketed demo links exactly like:
+Use reusable conventions instead of memorized project lists.
 
-```latex
-\href{https://example.com}{[Demo: Link]}
-```
+- Choose the strongest 2 to 4 evidence entries for the posting. These may be projects, experience, hackathons, coursework, or technical leadership.
+- Put the most relevant proof early. For project-heavy internship resumes, Projects may come before Experience when that better sells the role fit.
+- Keep the default structure simple: Header, Technical Skills, Education, Experience, Projects, and Hackathons/Awards/Technical Leadership as needed.
+- Keep internship and co-op resumes to one page unless the user explicitly asks otherwise or the evidence justifies two pages.
+- Use simple ATS-readable headings. Avoid icons, images, progress bars, heavy tables, and layout tricks that make parsing worse.
+- Preserve the resume owner's clean visual style from the base `.tex` template unless they ask for a redesign.
 
-## Project Naming Preferences
+Technical Skills should be tailored to the posting. Reorder categories to match the role and remove low-value skills that crowd out stronger signals. Do not list tools the resume owner cannot explain in an interview.
 
-Preserve the resume owner's chosen public-facing project names.
+Bullets should be concise and technical. Strong bullets usually include:
 
-Current important conventions:
-
-- Use polished public-facing project names instead of exposing less polished or sensitive repository names.
-- Hidden link targets may still point to the actual repository URL when the user has approved that link.
-- Use alternate or internal project names only if the user explicitly asks for that visible name.
-- Keep hackathon, club, or extracurricular context tied to projects only when it is factual and useful.
-
-## Writing Guidelines
-
-Project bullets should be concise and technical. Each project should communicate:
-
-- What was built.
+- What was built or improved.
 - The stack or implementation path.
-- The problem it solves.
-- The strongest technical detail.
-- A real outcome if one is provided.
+- The technical problem solved.
+- A real metric, award, scale, output, or outcome when provided.
 
-Do not add fake metrics. If the source says "Top 3 finish," use that. Do not invent percentages, users, production scale, company names, awards, or dates.
+Good verbs include `Built`, `Developed`, `Implemented`, `Engineered`, `Integrated`, `Automated`, `Configured`, `Evaluated`, `Validated`, `Documented`, `Troubleshot`, `Reduced`, and `Improved`. Avoid vague claims, buzzwords, tutorial wording, and paragraphs disguised as bullets.
 
-Prefer active, concrete wording:
+## Link And Naming Conventions
 
-- `Built...`
-- `Developed...`
-- `Implemented...`
-- `Reduced...`
-- `Turned... into...`
+Use links in a way that looks good to humans and stays meaningful if an ATS ignores metadata.
 
-Avoid bloated wording, vague buzzwords, and long bullets that make the PDF wrap badly.
+- Header LinkedIn and GitHub links may show readable full profile URLs.
+- Project links should usually hide long URLs inside concise labels such as `GitHub: Project Name`.
+- Demo links should use a clean bracketed label such as `[Demo: Link]`.
+- Do not expose raw local paths, copied `.git` URLs, long video edit URLs, or messy internal repo names in visible resume text.
+- Preserve the public-facing project names the user provides in the mockup or notes.
+- If a repo name is less polished than the public-facing project name, use the polished visible name and keep the actual URL hidden in `\href`.
 
-## Technical Skills Tailoring
+## LaTeX Creation Rules
 
-When the user provides a job-specific skills text file:
+When creating or editing a `.tex` resume:
 
-- Convert copied bullet characters into real LaTeX `\item`s.
-- Preserve the categories the user provided unless there is a clear typo.
-- Escape `&` as `\&`.
-- Escape `#` as `\#`, such as `C\#`.
-- Keep each skill line readable and avoid overstuffing a single bullet.
-- Prioritize keywords from the target job when the user asks for role-specific tailoring.
+- Start from the base template or the closest successful role-specific `.tex` file.
+- Keep the existing Times New Roman/fontspec style, gray section rules, compact spacing, and resume macros unless there is a clear reason to change them.
+- Use clean custom commands consistently, such as `\resumeSection`, `\resumeEntry`, `\resumeProject`, and `resumeItems`.
+- Do not add packages unless they solve a real resume problem.
+- Prefer natural LaTeX wrapping over manual line breaks.
+- Do not force page breaks unless the user asks.
+- Keep project stack subtitles short enough to avoid ugly wrapping.
+- Escape LaTeX-sensitive characters: `&`, `%`, `$`, `_`, and `#`.
+- Convert copied bullet characters into real `\item`s.
+- Remove mojibake and copied-text artifacts before considering the source ready.
 
-## LaTeX Rules
+The agent is responsible for professional wording, ATS alignment, and valid LaTeX syntax. Do not paste the mockup into LaTeX mechanically if the wording needs cleanup.
 
-Keep LaTeX simple and stable.
+## Honesty Rules
 
-- Do not introduce packages unless they solve a real problem.
-- Prefer natural LaTeX wrapping over manual `\\` line breaks.
-- Do not force `\newpage` unless the user asks.
-- Use nonbreaking spaces only when needed, such as `Linux~environments`.
-- Keep long project stack subtitles short enough to avoid ugly wrapping.
-- Escape LaTeX-sensitive characters: `&`, `%`, `$`, `_`, `#`.
-- Remove mojibake from copied text, especially broken bullet characters.
-- Keep custom commands such as `\resumeSection`, `\resumeEntry`, `\resumeProject`, and `resumeItems` consistent.
+Tailor aggressively, but stay conservative about truth.
 
-## PDF Build Workflow
+Do not invent facts, dates, metrics, links, awards, credentials, users, production scale, cloud platforms, certifications, or tools. Do not turn planned work into completed work. Do not claim leadership unless the resume owner led people or the wording is clearly about technical ownership.
 
-The preferred builders are:
+If a useful claim is uncertain, either soften it or mark it for confirmation in the brief or mockup. Use placeholders like `[X]`, `[metric]`, or `[confirm]` only when the user needs to supply the value before the final resume is submitted.
 
-```powershell
-./texpdf.ps1 <dir-path-from-cwd>\<your-.tex-file>
-```
-
-```bash
-./texpdf.sh <dir-path-from-cwd>/<your-.tex-file>
-```
-
-The scripts should:
-
-- Use `xelatex` by default.
-- Allow `lualatex` when requested.
-- Write PDFs into `Outputs/` by default.
-- Stop if the engine is missing.
-- Stop if a LaTeX package/file is missing.
-- Print a clear message for missing engines or packages.
-
-Use the Python builder only as a fallback or if the user explicitly asks:
-
-```powershell
-python -m src.tex_to_pdf --input <dir-path-from-cwd>\<your-.tex-file> --engine xelatex
-```
+If impressive wording could create interview trouble, rewrite it into a defensible version.
 
 ## Quality Checks
 
-Before considering a resume complete, verify what is feasible:
+Before treating a resume source as ready, check:
 
-- The `.tex` source has no mojibake.
-- There are no accidental visible full URLs in project sections.
-- `&` and `#` are escaped correctly.
-- No unwanted project names appear visibly.
-- No forced page break exists unless requested.
-- Link labels are concise and clickable.
-- Dates and project names align cleanly.
-- Bullets are consistently indented.
-- Long stack lines do not wrap awkwardly.
-- If possible, compile with `texpdf.ps1` or `texpdf.sh`.
-
-If compilation cannot be run, clearly state that only source-level checks were performed.
-
-## Editing Philosophy
-
-Make changes like a careful resume production worker:
-
-- Keep edits scoped to the request.
-- Preserve the resume owner's factual content and preferred phrasing.
-- Use existing resume files as style references.
-- Make the resume better for recruiters without making it harder to edit.
-- Prefer clean first drafts that the user can quickly iterate on.
-- Do not overexplain inside the `.tex` file.
-
-## Hard Constraints
-
-- Do not invent facts.
-- Do not add unprovided links.
-- Do not remove important keywords without a reason.
-- Do not rewrite the visual style unless asked.
-- Do not overwrite unrelated job resumes.
-- Do not rely on paid APIs or external resume builders.
-- Do not recreate deleted helper files, such as `texpdf.cmd`, unless the user explicitly asks.
+- The job brief clearly identifies ATS keywords, recruiter priorities, role risks, and facts not to invent.
+- The mockup has a clear section order, selected evidence, bullet drafts, links, and truth checks.
+- The `.tex` source has no mojibake, raw local paths, copied bullet artifacts, or accidental visible long URLs in project sections.
+- Link labels are clean, clickable, and intentional.
+- `&`, `%`, `$`, `_`, and `#` are escaped where needed.
+- Dates, titles, locations, and project names are consistent.
+- Bullets are concise, technical, and not overstuffed.
+- The resume stays one page for internships/co-ops unless there is a good reason.
 
 ## Success Definition
 
-Success means the user can ask for a role-specific resume, get a clean `.tex` file in the correct folder, compile it with one local command, and continue improving it through small targeted edits until the PDF is ready to send.
+Success means the user can give a job posting and get a practical briefing of what the ATS and recruiter are looking for, a structured mockup that captures the best truthful resume angle, and a professional `.tex` resume that follows reusable conventions without inventing facts.
